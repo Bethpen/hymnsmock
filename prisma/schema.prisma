@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String?
+  published Boolean?
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Hymn {
+  id String @id @map("_id")
+  number String?
+  title String?
+  titleWithHymnNumber String?
+  chorus String?
+  verses String[]
+  sound String?
+  favourite Boolean
+  category String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String?
+  songList Int[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
